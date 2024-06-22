@@ -1,3 +1,3 @@
 <template>
-    Table coming soon.
+    Test commit message
 </template>
