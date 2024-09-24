@@ -1,11 +1,9 @@
 import './bootstrap.js';
 
 import { createApp } from 'vue' 
-import CarsIndex from './Pages/Cars/Index.vue'
-import Homepage from './Pages/Homepage.vue';
+import App from './layouts/App.vue' 
+import router from './routes/index.js'
 
-
-createApp({}) 
-    .component('CarsIndex', CarsIndex)
-    .component('Homepage', Homepage)
+createApp(App) 
+    .use(router)
     .mount('#app')
