@@ -1,44 +1,34 @@
 <script setup>
-import {onMounted} from 'vue';
-import useManufacturers from '@/composables/manufacturers.js'
-import { TailwindPagination } from 'laravel-vue-pagination';
+import { onMounted, ref, watch } from 'vue';
+import useManufacturers from '@/composables/manufacturers';
+import useModels from '../composables/models';
+import Dropdown from '../Components/Dropdown.vue';
 
-const {manufacturers, getManufacturers} = useManufacturers()
+const { manufacturers, getManufacturers } = useManufacturers();
+const { models, getModels } = useModels();
+
+let selectedMake = ref(null)
+
+const handleMake = (updateValue) => {
+    selectedMake = updateValue
+    getModels(selectedMake)
+}
 
 onMounted(() => {
     getManufacturers()
 })
 
+
 </script>
 
-
 <template>
-    <div class="overflow-hidden overflow-x-auto p-6 bg-white border-gray-200">
-        <div class="min-w-full align-middle">
-            <table class="min-w-full divide-y divide-gray-200 border">
-                <thead>
-                    <tr>
-                        <th class="px-6 py-3 bg-gray-50 text-left">
-                            <span class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">ID</span>
-                        </th>
-                        <th class="px-6 py-3 bg-gray-50 text-left">
-                            <span
-                                class="text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Title</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200 divide-solid">
-                    <tr v-for="manufacturer in manufacturers.data">
-                        <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                            {{ manufacturer.id }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                            {{ manufacturer.name }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <TailwindPagination :data="manufacturers" @pagination-change-page="getManufacturers" class="mt-4" /> 
+    <form>
+        <div class="flex flex-row space-x-4">
+            <Dropdown @updateValue="handleMake" :id="'make'" :items="manufacturers" :label="'Make'"></Dropdown>
+            <Dropdown :id="'model'" :items="models" :label="'Model'"></Dropdown>
         </div>
-    </div>
+        <div class="mt-4">
+            <button class="rounded-md bg-green-600 px-3 py-2 text-sm uppercase text-white">Save</button>
+        </div>
+    </form>
 </template>

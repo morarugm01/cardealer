@@ -11,6 +11,6 @@ class ManufacturerController extends Controller
 {
     public function index()
     {
-        return ManufacturerResource::collection(Manufacturer::paginate(10));
+        return ManufacturerResource::collection(Manufacturer::get());
     }
 }

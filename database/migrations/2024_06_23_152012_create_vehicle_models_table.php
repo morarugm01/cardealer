@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('vehicle_models', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('vehichle_type')->unique();
             $table->foreignId('manufacturer_id')->constrained()->onDelete('cascade');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

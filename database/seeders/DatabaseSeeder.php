@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
     private function seedDatabase()
     {
         $this->call(ManufacturerSeeder::class);
+        $this->call(VehicleModelSeeder::class);
     }
 }

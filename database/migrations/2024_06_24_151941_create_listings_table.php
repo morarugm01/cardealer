@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('vehicle_model_id')->constrained()->onDelete('cascade');
             $table->integer('price');
             $table->string('fuel_type');
             $table->enum('gear', ['manual','semi-automatic', 'automatic']);
             $table->string('traction');
             $table->integer('cubic_capacity');
             $table->integer('mileage');
-            $table->foreignId('vehicle_model_id')->constrained()->onDelete('cascade');
+            $table->string('vehichle_type')->unique();
             $table->date('production_date');
             $table->timestamps();
         });
